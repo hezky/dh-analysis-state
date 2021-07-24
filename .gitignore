@@ -1,0 +1,8 @@
+.nyc_output/
+.scannerworks/
+coverage/
+dist/
+lib/
+node_modules/
+npm-debug.log
+sonar-project.properties

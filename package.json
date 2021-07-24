@@ -1,0 +1,26 @@
+{
+  "author": "David Hezky",
+  "description": "analysis state",
+  "dependencies": {
+    "@dh-utils/common": "^0.2.10"
+  },
+  "devDependencies": {
+    "@dh-js/dependency-base": "^0.0.46",
+    "@dh-js/scripts-run": "^0.1.33",
+    "babel-plugin-module-resolver": "^4.1.0"
+  },
+  "files": [
+    "lib"
+  ],
+  "license": "ISC",
+  "main": "lib/js/index.js",
+  "name": "@dh-analysis/state",
+  "scripts": {
+    "build": "dh-run build",
+    "clean": "dh-run clean",
+    "eslint": "dh-run eslint",
+    "prepublishOnly": "dh-run prepublishOnly",
+    "test": "dh-run test"
+  },
+  "version": "0.0.1"
+}
