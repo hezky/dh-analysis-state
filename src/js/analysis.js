@@ -6,11 +6,8 @@ import Duplicates from "parts/duplicates";
 import makeAnalysisList from "parts/makeAnalysis/list";
 import makeAnalysisNode from "parts/makeAnalysis/node";
 import makeIterator from "parts/makeIterator";
+import defaultReporter from "reporter/default";
 import { checkList, checkNode } from "utils/check";
-
-const defaultReporter = () => {
-  console.log("hellooo ...");
-};
 
 class Analysis {
   constructor(reporter = defaultReporter) {
@@ -18,7 +15,8 @@ class Analysis {
     this.iterator = makeIterator();
     this.duplicates = new Duplicates();
     this.known = new Map();
-    this.reporter = reporter.bind(this);
+    this.reporter = reporter;
+    this.reporter = this.reporter.bind(this);
   }
 
   _createIndex(index) {

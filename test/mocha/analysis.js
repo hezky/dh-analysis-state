@@ -19,17 +19,28 @@ describe("analysis", () => {
   it("analysis : duplicate object", () => {
     const analysis = new Analysis();
     const adress = { street: "Street 123" };
+    const age = { age: 12 };
     const user = {
       name: "arthur",
       aaa: { newAdress: adress },
-      bbb: { oldAdress: adress },
+      bbb: { newAge: age },
+      ccc: { oldAdress: adress },
+      ddd: { oldAge: age },
     };
     analysis.register(user, "user");
     const expectedGroup = {
-      0: { "0_2_0": "user/bbb/oldAdress", "0_1_0": "user/aaa/newAdress" },
+      0: { "0_1_0": "user/aaa/newAdress", "0_3_0": "user/ccc/oldAdress" },
+      1: { "0_2_0": "user/bbb/newAge", "0_4_0": "user/ddd/oldAge" },
     };
-    const expectedKeys = { "0_2_0": "0", "0_1_0": "0" };
+    const expectedKeys = {
+      "0_1_0": "0",
+      "0_2_0": "1",
+      "0_3_0": "0",
+      "0_4_0": "1",
+    };
     assert.deepEqual(analysis.duplicates.storeGroup, expectedGroup);
     assert.deepEqual(analysis.duplicates.storeSKeys, expectedKeys);
+
+    analysis.report();
   });
 });
