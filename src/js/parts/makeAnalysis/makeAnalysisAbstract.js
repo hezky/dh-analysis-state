@@ -4,7 +4,12 @@ import { VALUE_UNKNOWN } from "constants/atributes";
 
 import { makeAtributeDeep, makeAtributeSKey, makeAtributePath } from "./utils";
 
-const makeAnalysisAbstract = (value, name = VALUE_UNKNOWN, index, parrent) => {
+const makeAnalysisAbstract = (
+  value,
+  name = VALUE_UNKNOWN,
+  index = null,
+  parrent = null
+) => {
   const obj = {};
   obj.deep = makeAtributeDeep();
   obj.name = name;
