@@ -2,11 +2,16 @@ let defaultReporter = function () {
   const groups = this.duplicates.storeGroup;
   for (const propsG in groups) {
     const group = groups[propsG];
-    console.log(`group : ${propsG}`);
+    let paths = [];
     for (const propsK in group) {
       const path = group[propsK];
-      console.log(` - ${path}`);
+      paths.push(path);
     }
+    paths = paths.sort();
+    console.log(`group : ${propsG}`);
+    paths.forEach((path) => {
+      console.log(` - ${path}`);
+    });
     console.log();
   }
 };
