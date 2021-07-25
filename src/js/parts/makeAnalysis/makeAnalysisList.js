@@ -2,7 +2,12 @@ import { TYPE_TREE_LIST, VALUE_UNKNOWN } from "constants/atributes";
 
 import makeAnalysisAbstract from "./abstract";
 
-const makeAnalysisList = (value, name = VALUE_UNKNOWN, index = null, parrent = null) => {
+const makeAnalysisList = (
+  value,
+  name = VALUE_UNKNOWN,
+  index = null,
+  parrent = null
+) => {
   const obj = makeAnalysisAbstract(value, name, index, parrent);
   obj.duplicate = false;
   obj.typeNode = TYPE_TREE_LIST;
