@@ -97,6 +97,7 @@ Example **storeGroup** :
     sKey7: pathX/pathY/pathZ
   }
 }
+```
 
 ## Example of a default report to create your own report
 ``` javascript
