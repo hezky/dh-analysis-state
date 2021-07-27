@@ -3,20 +3,24 @@ import { isArray, isObject } from "@dh-utils/common";
 import { UNKNOWN } from "constants/atributes";
 import Analyzed from "parts/analyzed";
 import Duplicates from "parts/duplicates";
-import makeAnalysisList from "parts/makeAnalysis/list";
-import makeAnalysisNode from "parts/makeAnalysis/node";
+import makeAnalysisList from "parts/makeAnalysis/makeAnalysisList";
+import makeAnalysisNode from "parts/makeAnalysis/makeAnalysisNode";
 import makeIterator from "parts/makeIterator";
 import defaultReporter from "reporter/default";
 import { checkList, checkNode } from "utils/check";
 
 class Analysis {
   constructor(reporter = defaultReporter) {
+    this.reporter = reporter;
+    this.reporter = this.reporter.bind(this);
+    this.reset();
+  }
+
+  reset() {
     this.analyzed = new Analyzed();
     this.iterator = makeIterator();
     this.duplicates = new Duplicates();
     this.known = new Map();
-    this.reporter = reporter;
-    this.reporter = this.reporter.bind(this);
   }
 
   _createIndex(index) {
@@ -63,7 +67,7 @@ class Analysis {
     this.analyzed.add(analysisObj);
   }
 
-  registerDuplicate(value, analysisObj) {
+  _registerDuplicate(value, analysisObj) {
     const aNew = { sKey: analysisObj.sKey, path: analysisObj.path };
     const duplObj = this.known.get(value);
     const dupl = { sKey: duplObj.sKey, path: duplObj.path };
@@ -80,7 +84,7 @@ class Analysis {
       if (this.known.has(value) == false) {
         this.known.set(value, analysisObj);
       } else {
-        this.registerDuplicate(value, analysisObj);
+        this._registerDuplicate(value, analysisObj);
       }
       this._registerArrayChildren(value, analysisObj);
       this._registerObjectChildren(value, analysisObj);

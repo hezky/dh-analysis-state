@@ -1,6 +1,6 @@
 import { TYPE_TREE_NODE, VALUE_UNKNOWN } from "constants/atributes";
 
-import makeAnalysisAbstract from "./abstract";
+import makeAnalysisAbstract from "./makeAnalysisAbstract";
 
 const makeAnalysisNode = (
   value,

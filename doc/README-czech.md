@@ -68,3 +68,56 @@ group : 1
 ```
 
 Proměnná **user** má 2 skupiny duplicit. Označené zde jako **group 0** a **group 1**. U každé duplicity se zobrazuje hloubková cesta v objektu k danému místu duplicity.
+
+## Použití vlastního reportu
+
+K vytvoření vlastního reportu využijte svázaný lokální proměnné duplicity - **storeGroup** a **storeSKeys** .
+
+**storeSKeys** : seznam id klíčů. Každý klíč má hodnotu identifikátor skupiny duplicity.
+
+Příklad **storeSKeys** :
+``` text
+{
+  sKey1: group1,
+  sKey5: group1,
+  sKey7: group2
+}
+```
+
+**storeGroup** : seznam id skupin. U Každé id skupiny je hodnotou seznam cest ke stejnému duplicitnímu objektu případně pole.
+
+Příklad **storeGroup** :
+``` text
+{
+  group1: {
+    sKey1: pathA/pathB/pathC,
+    sKey5: pathF/pathG/pathH
+  },
+  group2: {
+    sKey7: pathX/pathY/pathZ
+  }
+}
+```
+
+## Příklad defautního reportu k vytvoření vlastního reportu
+``` javascript
+let defaultReporter = function () {
+  const groups = this.duplicates.storeGroup;
+  for (const propsG in groups) {
+    const group = groups[propsG];
+    let paths = [];
+    for (const propsK in group) {
+      const path = group[propsK];
+      paths.push(path);
+    }
+    paths = paths.sort();
+    console.log(`group : ${propsG}`);
+    paths.forEach((path) => {
+      console.log(` - ${path}`);
+    });
+    console.log();
+  }
+};
+
+export default defaultReporter;
+```

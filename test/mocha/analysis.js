@@ -40,7 +40,5 @@ describe("analysis", () => {
     };
     assert.deepEqual(analysis.duplicates.storeGroup, expectedGroup);
     assert.deepEqual(analysis.duplicates.storeSKeys, expectedKeys);
-
-    analysis.report();
   });
 });

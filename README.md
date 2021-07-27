@@ -68,3 +68,55 @@ group : 1
 ```
 
 The variable **user** has 2 groups of duplicates. Marked here as **group 0** and **group 1**. For each duplicate, the depth path in the object to that duplicate location is displayed.
+
+## Use your own report
+
+Use the bound local duplicate variables - **storeGroup** and **storeSKeys** - to create your own report.
+
+**storeSKeys**: list of key ids. Each key has a duplicate group identifier value.
+
+Example **storeSKeys** :
+``` text
+{
+  sKey1: group1,
+  sKey5: group1,
+  sKey7: group2
+}
+```
+
+**storeGroup**: list of group ids. For each group id, the value is a list of paths to the same duplicate object or field.
+
+Example **storeGroup** :
+``` text
+{
+  group1: {
+    sKey1: pathA/pathB/pathC,
+    sKey5: pathF/pathG/pathH
+  },
+  group2: {
+    sKey7: pathX/pathY/pathZ
+  }
+}
+
+## Example of a default report to create your own report
+``` javascript
+let defaultReporter = function () {
+  const groups = this.duplicates.storeGroup;
+  for (const propsG in groups) {
+    const group = groups[propsG];
+    let paths = [];
+    for (const propsK in group) {
+      const path = group[propsK];
+      paths.push(path);
+    }
+    paths = paths.sort();
+    console.log(`group : ${propsG}`);
+    paths.forEach((path) => {
+      console.log(` - ${path}`);
+    });
+    console.log();
+  }
+};
+
+export default defaultReporter;
+```
