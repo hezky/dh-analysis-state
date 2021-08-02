@@ -12,9 +12,13 @@
   "files": [
     "lib"
   ],
-  "license": "ISC",
+  "license": "see license in file LICENSE",
   "main": "lib/js/index.js",
   "name": "@dh-analysis/state",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hezky/dh-analysis-state.git"
+  },
   "scripts": {
     "build": "dh-run build",
     "clean": "dh-run clean",

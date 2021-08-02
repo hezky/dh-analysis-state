@@ -71,7 +71,7 @@ Proměnná **user** má 2 skupiny duplicit. Označené zde jako **group 0** a **
 
 ## Použití vlastního reportu
 
-K vytvoření vlastního reportu využijte svázaný lokální proměnné duplicity - **storeGroup** a **storeSKeys** .
+K vytvoření vlastního reportu využijte svázané (metoda bind) lokální proměnné duplicity - **storeGroup** a **storeSKeys** .
 
 **storeSKeys** : seznam id klíčů. Každý klíč má hodnotu identifikátor skupiny duplicity.
 

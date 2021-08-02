@@ -71,7 +71,7 @@ The variable **user** has 2 groups of duplicates. Marked here as **group 0** and
 
 ## Use your own report
 
-Use the bound local duplicate variables - **storeGroup** and **storeSKeys** - to create your own report.
+Use the bound (method bind) local duplicate variables - **storeGroup** and **storeSKeys** - to create your own report.
 
 **storeSKeys**: list of key ids. Each key has a duplicate group identifier value.
 
