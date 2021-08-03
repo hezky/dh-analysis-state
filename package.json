@@ -2,11 +2,11 @@
   "author": "David Hezky",
   "description": "analysis state",
   "dependencies": {
-    "@dh-utils/common": "^0.2.10"
+    "@dh-utils/common": "^0.3.0"
   },
   "devDependencies": {
-    "@dh-js/dependency-base": "^0.0.46",
-    "@dh-js/scripts-run": "^0.1.33",
+    "@dh-dependency/base": "^0.0.53",
+    "@dh-scripts/run": "^0.2.1",
     "babel-plugin-module-resolver": "^4.1.0"
   },
   "files": [
