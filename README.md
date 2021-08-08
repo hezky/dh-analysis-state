@@ -1,6 +1,6 @@
-# dh-analysis-state
+# @dh-analysis/state
 
-[Readme in Czech (Readme v Češtině)](https://github.com/hezky/dh-analysis-state/blob/master/doc/README-czech.md)
+[Readme in Czech (Readme v Češtině)](https://github.com/hezky/@dh-analysis/state/blob/master/doc/README-czech.md)
 
 > A tool for analyzing the state of variables. Analyze objects, arrays, and their internal parts to see if they share the same memory address.
 

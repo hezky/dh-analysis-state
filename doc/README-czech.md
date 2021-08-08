@@ -1,6 +1,6 @@
-# dh-analysis-state
+# @dh-analysis/state
 
-[Použití v anglickém jazyce (Readme in English)](https://github.com/hezky/dh-analysis-state/blob/master/README.md)
+[Použití v anglickém jazyce (Readme in English)](https://github.com/hezky/@dh-analysis/state/blob/master/README.md)
 
 > Nástroj k analýze stavu proměnných. Analýza objektů, polí a jejich vnitřních části s kontrolou jestli sdílejí stejnou adresu paměti.
 
