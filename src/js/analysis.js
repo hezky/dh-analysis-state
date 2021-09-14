@@ -7,7 +7,7 @@ import makeAnalysisList from "parts/makeAnalysis/makeAnalysisList";
 import makeAnalysisNode from "parts/makeAnalysis/makeAnalysisNode";
 import makeIterator from "parts/makeIterator";
 import defaultReporter from "reporter/default";
-import { checkList, checkNode } from "utils/check";
+import { checkIsList, checkIsNode } from "utils/check";
 
 class Analysis {
   constructor(reporter = defaultReporter) {
@@ -18,8 +18,8 @@ class Analysis {
 
   reset() {
     this.analyzed = new Analyzed();
-    this.iterator = makeIterator();
     this.duplicates = new Duplicates();
+    this.iterator = makeIterator();
     this.known = new Map();
   }
 
@@ -28,7 +28,7 @@ class Analysis {
   }
 
   _createName(name) {
-    return name ? name : `${UNKNOWN}_${this.iterator.value()}`;
+    return name ? name : `${UNKNOWN}-${this.iterator.value()}`;
   }
 
   _registerArrayChildren(value, analysisObj) {
@@ -36,9 +36,9 @@ class Analysis {
       analysisObj.child = {};
       value.forEach((child, index) => {
         analysisObj.child[index] = child;
-        if (checkNode(child)) {
+        if (checkIsNode(child)) {
           this.register(child, `${index}`, index, analysisObj);
-        } else if (checkList(child)) {
+        } else if (checkIsList(child)) {
           this._registerList(child, `${index}`, index, analysisObj);
         }
       });
@@ -52,9 +52,9 @@ class Analysis {
       for (const property in value) {
         const child = value[property];
         analysisObj.child[property] = child;
-        if (checkNode(child)) {
+        if (checkIsNode(child)) {
           this.register(child, property, index, analysisObj);
-        } else if (checkList(child)) {
+        } else if (checkIsList(child)) {
           this._registerList(child, property, index, analysisObj);
         }
         index++;
@@ -69,26 +69,28 @@ class Analysis {
 
   _registerDuplicate(value, analysisObj) {
     const aNew = { sKey: analysisObj.sKey, path: analysisObj.path };
-    const duplObj = this.known.get(value);
+    const sKeyDupl = this.known.get(value);
+    const duplObj = this.analyzed.get(sKeyDupl);
     const dupl = { sKey: duplObj.sKey, path: duplObj.path };
     this.duplicates.set(aNew, dupl);
     analysisObj.duplicate = this.duplicates.get(aNew.sKey);
+    duplObj.duplicate = this.duplicates.get(dupl.sKey);
   }
 
   register(value, name, index, parrent) {
     const _index = this._createIndex(index);
     const _name = this._createName(name);
-    if (checkNode(value)) {
+    if (checkIsNode(value)) {
       const analysisObj = makeAnalysisNode(value, _name, _index, parrent);
       this.analyzed.add(analysisObj);
       if (this.known.has(value) == false) {
-        this.known.set(value, analysisObj);
+        this.known.set(value, analysisObj.sKey);
       } else {
         this._registerDuplicate(value, analysisObj);
       }
       this._registerArrayChildren(value, analysisObj);
       this._registerObjectChildren(value, analysisObj);
-    } else if (checkList(value)) {
+    } else if (checkIsList(value)) {
       this._registerList(value, _name, _index, parrent);
     }
 
@@ -98,13 +100,7 @@ class Analysis {
   }
 
   report() {
-    let result;
-    if (isArray(this.reporter)) {
-      result = this.reporter.map((elem) => elem());
-    } else {
-      result = this.reporter();
-    }
-    return result;
+    return this.reporter();
   }
 }
 

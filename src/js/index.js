@@ -1,1 +1,1 @@
-export { default } from "./analysis.js";
+export default from "./analysis.js";

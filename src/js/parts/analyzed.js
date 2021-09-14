@@ -6,6 +6,10 @@ class Analyzed {
   add(obj) {
     this.store[obj.sKey] = obj;
   }
+
+  get(sKey) {
+    return this.store[sKey];
+  }
 }
 
 export default Analyzed;

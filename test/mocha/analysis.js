@@ -38,6 +38,7 @@ describe("analysis", () => {
       "0_3_0": "0",
       "0_4_0": "1",
     };
+
     assert.deepEqual(analysis.duplicates.storeGroup, expectedGroup);
     assert.deepEqual(analysis.duplicates.storeSKeys, expectedKeys);
   });
