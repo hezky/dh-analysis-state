@@ -1,13 +1,15 @@
 import { isArray, isObject } from "@dh-utils/common";
 
-import { UNKNOWN } from "constants/atributes";
+import { TYPE_NODES, UNKNOWN } from "constants/atributes";
 import Analyzed from "parts/analyzed";
 import Duplicates from "parts/duplicates";
-import makeAnalysisList from "parts/makeAnalysis/makeAnalysisList";
-import makeAnalysisNode from "parts/makeAnalysis/makeAnalysisNode";
+import makeAnalysisObj from "parts/makeAnalysisObj";
 import makeIterator from "parts/makeIterator";
 import defaultReporter from "reporter/default";
 import { checkIsList, checkIsNode } from "utils/check";
+
+const defaultIndex = (iterator) => iterator.value();
+const defaultName = (iterator) => `${UNKNOWN}-${iterator.value()}`;
 
 class Analysis {
   constructor(reporter = defaultReporter) {
@@ -23,75 +25,81 @@ class Analysis {
     this.known = new Map();
   }
 
-  _createIndex(index) {
-    return index ? index : this.iterator.value();
-  }
-
-  _createName(name) {
-    return name ? name : `${UNKNOWN}-${this.iterator.value()}`;
-  }
-
-  _registerArrayChildren(value, analysisObj) {
-    if (isArray(value)) {
-      analysisObj.child = {};
-      value.forEach((child, index) => {
-        analysisObj.child[index] = child;
-        if (checkIsNode(child)) {
-          this.register(child, `${index}`, index, analysisObj);
-        } else if (checkIsList(child)) {
-          this._registerList(child, `${index}`, index, analysisObj);
+  _registerChildren(analysisObj) {
+    analysisObj.child = {};
+    const { value } = analysisObj;
+    switch (true) {
+      case isArray(value):
+        {
+          value.forEach((child, index) => {
+            const name = `${index}`;
+            analysisObj.child[index] = child;
+            this.register(child, name, index, analysisObj);
+          });
         }
-      });
-    }
-  }
-
-  _registerObjectChildren(value, analysisObj) {
-    if (isObject(value)) {
-      analysisObj.child = {};
-      let index = 0;
-      for (const property in value) {
-        const child = value[property];
-        analysisObj.child[property] = child;
-        if (checkIsNode(child)) {
-          this.register(child, property, index, analysisObj);
-        } else if (checkIsList(child)) {
-          this._registerList(child, property, index, analysisObj);
+        break;
+      case isObject(value):
+        {
+          let index = 0;
+          for (const property in value) {
+            const child = value[property];
+            analysisObj.child[property] = child;
+            this.register(child, property, index, analysisObj);
+            index++;
+          }
         }
-        index++;
+        break;
+      default: {
+        throw "unknow node ...";
       }
     }
   }
 
-  _registerList(value, name, index, parrent) {
-    const analysisObj = makeAnalysisList(value, name, index, parrent);
+  _registerDuplicate(analysisObj) {
+    const duplicatedSKey = this.known.get(analysisObj.value);
+    const duplicatedObj = this.analyzed.get(duplicatedSKey);
+    this.duplicates.set(analysisObj, duplicatedObj);
+    analysisObj.duplicate = this.duplicates.get(this.duplicates.sKey);
+    duplicatedObj.duplicate = this.duplicates.get(this.duplicates.sKey);
+  }
+
+  _registerNode(item) {
+    const analysisObj = makeAnalysisObj(item, TYPE_NODES.NODE);
     this.analyzed.add(analysisObj);
+    if (this.known.has(analysisObj.value) === false) {
+      this.known.set(analysisObj.value, analysisObj.sKey);
+    } else {
+      this._registerDuplicate(analysisObj);
+    }
+    this._registerChildren(analysisObj);
   }
 
-  _registerDuplicate(value, analysisObj) {
-    const aNew = { sKey: analysisObj.sKey, path: analysisObj.path };
-    const sKeyDupl = this.known.get(value);
-    const duplObj = this.analyzed.get(sKeyDupl);
-    const dupl = { sKey: duplObj.sKey, path: duplObj.path };
-    this.duplicates.set(aNew, dupl);
-    analysisObj.duplicate = this.duplicates.get(aNew.sKey);
-    duplObj.duplicate = this.duplicates.get(dupl.sKey);
+  _registerList(item) {
+    this.analyzed.add(makeAnalysisObj(item, TYPE_NODES.LIST));
   }
 
-  register(value, name, index, parrent) {
-    const _index = this._createIndex(index);
-    const _name = this._createName(name);
-    if (checkIsNode(value)) {
-      const analysisObj = makeAnalysisNode(value, _name, _index, parrent);
-      this.analyzed.add(analysisObj);
-      if (this.known.has(value) == false) {
-        this.known.set(value, analysisObj.sKey);
-      } else {
-        this._registerDuplicate(value, analysisObj);
+  register(
+    value,
+    name = defaultName(this.iterator),
+    index = defaultIndex(this.iterator),
+    parrent
+  ) {
+    const item = {
+      index,
+      name,
+      parrent,
+      value,
+    };
+    switch (true) {
+      case checkIsNode(value):
+        this._registerNode(item);
+        break;
+      case checkIsList(value):
+        this._registerList(item);
+        break;
+      default: {
+        throw "unknow node ...";
       }
-      this._registerArrayChildren(value, analysisObj);
-      this._registerObjectChildren(value, analysisObj);
-    } else if (checkIsList(value)) {
-      this._registerList(value, _name, _index, parrent);
     }
 
     if (index === undefined) {

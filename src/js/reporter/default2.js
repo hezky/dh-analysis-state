@@ -1,4 +1,4 @@
-// eslint disabled
+/* eslint-disable */
 
 let defaultReporter = function () {
   const groups = this.duplicates.storeGroup;
