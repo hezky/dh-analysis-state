@@ -42,6 +42,8 @@ Defaultně se zobrazuje report pomocí (console.log): seznam duplicitních adres
 
 ## Příklad použití
 ``` javascript
+import Analysis from "@dh-analysis/state";
+...
 const analysis = new Analysis(); // nebo new Analysis(ownReporter);
 const adress = { street: "Street 123" };
 const age = { age: 12 };

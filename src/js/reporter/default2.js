@@ -13,7 +13,6 @@ let defaultReporter = function () {
     paths = paths.sort();
     console.groupCollapsed(`group : ${propsG}`);
     console.table(paths);
-    console.log(">> ", this.analyzed.get(propsK)?.values)
     console.groupEnd();
   }
 };
