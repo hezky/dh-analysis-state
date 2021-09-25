@@ -21,7 +21,7 @@ class Analysis {
   reset() {
     this.analyzed = new Analyzed();
     this.duplicates = new Duplicates();
-    this.iterator = makeIterator();makeAnalysisObj
+    this.iterator = makeIterator();
     this.known = new Map();
   }
 
