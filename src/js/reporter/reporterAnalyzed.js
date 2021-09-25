@@ -1,6 +1,4 @@
-import { isArray, isObject } from "@dh-utils/common";
-
-const defaultReporter = function() {
+const defaultReporter = function () {
   const store = this.analyzed.getStore();
   let first = true;
   for (const sKey in store) {

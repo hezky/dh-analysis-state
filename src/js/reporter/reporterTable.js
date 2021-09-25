@@ -1,4 +1,4 @@
-const defaultReporter = function() {
+const defaultReporter = function () {
   const groups = this.duplicates.getStoreGroup();
   let first = true;
   for (const keyGroup in groups) {

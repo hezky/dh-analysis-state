@@ -4,10 +4,7 @@
     [
       "module-resolver",
       {
-        "root": ["./src/js"],
-        "alias": {
-          "makeIterator": "./src/js/parts/makeIterator"
-        }
+        "root": ["./src/js"]
       }
     ]
   ]

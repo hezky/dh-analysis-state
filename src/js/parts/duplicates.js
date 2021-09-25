@@ -1,4 +1,4 @@
-import makeIterator from "makeIterator";
+import makeIterator from "parts/makeIterator";
 
 class Duplicates {
   constructor() {

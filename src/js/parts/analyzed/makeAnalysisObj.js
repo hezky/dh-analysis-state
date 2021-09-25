@@ -1,6 +1,6 @@
-import { isArray, isBoolean, findOutTheType } from "@dh-utils/common";
+import { isArray, findOutTheType } from "@dh-utils/common";
 
-import { TYPE_NODES, VALUE_UNKNOWN } from "constants/atributes";
+import { VALUE_UNKNOWN } from "constants/atributes";
 
 const determineDeep = (parrent) => (parrent ? parrent.deep + 1 : 0);
 
@@ -20,14 +20,15 @@ const makeAnalysisParrent = (parrent, childSKey) => {
   }
 };
 
-/*
+/*o be thrown.
+
  ********************************************
  ANALYSIS OBJECT
 - atributes :
   ... deep       - deep in struct
   ... duplicate  - duplicate in memory
   ... children   - list children keys
-  ... index      - index  
+  ... index      - index
   ... name       - name property in parrent value
   ... parrent    - parrent key
   ... path       - path in state
@@ -54,7 +55,7 @@ const makeAnalysisObj = (
   obj.value = value;
   obj.typeNode = type;
 
-  const childSKey = obj.sKey
+  const childSKey = obj.sKey;
   makeAnalysisParrent(parrent, childSKey);
 
   return obj;

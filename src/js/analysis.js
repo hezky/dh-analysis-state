@@ -60,7 +60,7 @@ class Analysis {
     this.duplicates.set(analysisObj, duplicatedObj);
     const listDuplicates = Object.keys(this.duplicates.get(duplicatedSKey));
     listDuplicates.forEach((item) => {
-      const objA = this.analyzed.get(item)
+      const objA = this.analyzed.get(item);
       objA.duplicate = listDuplicates;
     });
   }

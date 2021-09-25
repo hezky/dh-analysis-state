@@ -1,5 +1,3 @@
-import { isArray, isObject } from "@dh-utils/common";
-
 // "─"."┬"."└"."│"."├"." "
 const CHAR = {
   ACT_EXIST_CHILDREN: "─┬",
@@ -60,7 +58,7 @@ const defaultReporter = function () {
     bFirstCycle = logFirstLine(bFirstCycle, sKey);
 
     if (sKey.length > 1) {
-      const { deep, duplicate, children, index, path, parrent } = obj;
+      const { duplicate, children, index } = obj;
       const countChildOfParrent = getCountChildrenOfParrent(
         this.analyzed,
         parrent
@@ -71,7 +69,9 @@ const defaultReporter = function () {
       const _empty = logPos(deep, storeDeep, parsedSKey);
       const _parPos = logPar(deep, index, countChildOfParrent);
       const _childPos = logAct(childCount);
-      const _dupl = duplicate ? ` duplicate (${duplicate.join(", ")})` : CHAR.EMPTY;
+      const _dupl = duplicate
+        ? ` duplicate (${duplicate.join(", ")})`
+        : CHAR.EMPTY;
       console.log(_empty + _parPos + _childPos + CHAR.SPACE + sKey + _dupl);
     }
   }
