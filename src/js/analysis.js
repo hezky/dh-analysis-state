@@ -58,8 +58,11 @@ class Analysis {
     const duplicatedSKey = this.known.get(analysisObj.value);
     const duplicatedObj = this.analyzed.get(duplicatedSKey);
     this.duplicates.set(analysisObj, duplicatedObj);
-    analysisObj.duplicate = this.duplicates.getDuplicateKeys(duplicatedSKey);
-    duplicatedObj.duplicate = this.duplicates.getDuplicateKeys(duplicatedSKey);
+    const listDuplicates = Object.keys(this.duplicates.get(duplicatedSKey));
+    listDuplicates.forEach((item) => {
+      const objA = this.analyzed.get(item)
+      objA.duplicate = listDuplicates;
+    });
   }
 
   _registerNode(item) {

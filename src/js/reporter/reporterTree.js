@@ -71,7 +71,8 @@ const defaultReporter = function () {
       const _empty = logPos(deep, storeDeep, parsedSKey);
       const _parPos = logPar(deep, index, countChildOfParrent);
       const _childPos = logAct(childCount);
-      console.log(_empty + _parPos + _childPos + CHAR.EMPTY + sKey);
+      const _dupl = duplicate ? ` duplicate (${duplicate.join(", ")})` : CHAR.EMPTY;
+      console.log(_empty + _parPos + _childPos + CHAR.SPACE + sKey + _dupl);
     }
   }
 };
