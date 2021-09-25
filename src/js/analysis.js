@@ -3,7 +3,7 @@ import { isArray, isObject } from "@dh-utils/common";
 import { TYPE_NODES, UNKNOWN } from "constants/atributes";
 import Analyzed from "parts/analyzed";
 import Duplicates from "parts/duplicates";
-import makeAnalysisObj from "parts/makeAnalysisObj";
+import makeAnalysisObj from "parts/analyzed/makeAnalysisObj";
 import makeIterator from "parts/makeIterator";
 import defaultReporter from "reporter/default";
 import { checkIsList, checkIsNode } from "utils/check";
@@ -21,30 +21,29 @@ class Analysis {
   reset() {
     this.analyzed = new Analyzed();
     this.duplicates = new Duplicates();
-    this.iterator = makeIterator();
+    this.iterator = makeIterator();makeAnalysisObj
     this.known = new Map();
   }
 
   _registerChildren(analysisObj) {
-    analysisObj.child = {};
     const { value } = analysisObj;
     switch (true) {
       case isArray(value):
         {
           value.forEach((child, index) => {
             const name = `${index}`;
-            analysisObj.child[index] = child;
-            this.register(child, name, index, analysisObj);
+            const parrentSKey = analysisObj.sKey;
+            this.register(child, name, index, parrentSKey);
           });
         }
         break;
       case isObject(value):
         {
           let index = 0;
-          for (const property in value) {
-            const child = value[property];
-            analysisObj.child[property] = child;
-            this.register(child, property, index, analysisObj);
+          for (const name in value) {
+            const child = value[name];
+            const parrentSKey = analysisObj.sKey;
+            this.register(child, name, index, parrentSKey);
             index++;
           }
         }
@@ -59,8 +58,8 @@ class Analysis {
     const duplicatedSKey = this.known.get(analysisObj.value);
     const duplicatedObj = this.analyzed.get(duplicatedSKey);
     this.duplicates.set(analysisObj, duplicatedObj);
-    analysisObj.duplicate = this.duplicates.get(this.duplicates.sKey);
-    duplicatedObj.duplicate = this.duplicates.get(this.duplicates.sKey);
+    analysisObj.duplicate = this.duplicates.getDuplicateKeys(duplicatedSKey);
+    duplicatedObj.duplicate = this.duplicates.getDuplicateKeys(duplicatedSKey);
   }
 
   _registerNode(item) {
@@ -82,8 +81,9 @@ class Analysis {
     value,
     name = defaultName(this.iterator),
     index = defaultIndex(this.iterator),
-    parrent
+    parrentSKey
   ) {
+    const parrent = this.analyzed.get(parrentSKey) || undefined;
     const item = {
       index,
       name,

@@ -2,7 +2,8 @@ const defaultReporter = function() {
   const groups = this.duplicates.getStoreGroup();
   let first = true;
   for (const keyGroup in groups) {
-    if (first === false){
+    // log empty line
+    if (first === false) {
       console.log();
     } else {
       first = false;
@@ -14,10 +15,9 @@ const defaultReporter = function() {
       paths.push(path);
     }
     paths = paths.sort();
-    console.log(`group : ${keyGroup}`);
-    paths.forEach((path) => {
-      console.log(` - ${path}`);
-    });
+    console.groupCollapsed(`group : ${keyGroup}`);
+    console.table(paths);
+    console.groupEnd();
   }
 };
 

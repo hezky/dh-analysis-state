@@ -43,13 +43,13 @@ By default, the report is displayed using (console.log): a list of duplicate add
 
 ``` javascript
 const analysis = new Analysis(); // or new Analysis(ownReporter);
-const adress = { street: "Street 123" };
+const address = { street: "Street 123" };
 const age = { age: 12 };
 const user = {
   name: "arthur",
-  aaa: { newAdress: adress },
+  aaa: { newAddress: address },
   bbb: { newAge: age },
-  ccc: { oldAdress: adress },
+  ccc: { oldAddress: address },
   ddd: { oldAge: age },
 };
 analysis.register(user, "user");
@@ -59,8 +59,8 @@ analysis.report(); // displays the analysis
 **metoda report** : console.log - výstup
 ``` text
 group : 0
- - user/ccc/oldAdress
- - user/aaa/newAdress
+ - user/ccc/oldAddress
+ - user/aaa/newAddress
 
 group : 1
  - user/ddd/oldAge

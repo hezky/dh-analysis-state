@@ -12,6 +12,14 @@ class Duplicates {
     return this.storeGroup[group];
   }
 
+  getDuplicateKeys(sKey) {
+    return Object.keys(this.get(sKey));
+  }
+
+  getStoreGroup() {
+    return this.storeGroup;
+  }
+
   set(aNew, dupl) {
     const group = this.storeSKeys[dupl.sKey];
     if (!group) {

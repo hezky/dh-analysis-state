@@ -10,6 +10,10 @@ class Analyzed {
   get(sKey) {
     return this.store[sKey];
   }
+
+  getStore() {
+    return this.store;
+  }
 }
 
 export default Analyzed;

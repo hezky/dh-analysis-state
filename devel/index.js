@@ -1,20 +1,26 @@
 /* in you case use 'import Analysis from "@dh-analysis/state"' */
 import Analysis from "";
 
+import reporter from "reporter/reporterTree";
+
 /* or use 'new Analysis(ownReporter);' */
-const analysis = new Analysis();
-const adress = { street: "Street 123" };
-const age = { age: 12 };
+const analysis = new Analysis(reporter);
+const address = { street: "Street 123" };
+const age = { name: "Jack", age: 12, phone: "123 456 789" };
 const user = {
   name: "arthur",
-  aaa: { newAdress: adress },
+  aaa: { newAddress: address },
   bbb: { newAge: age },
-  ccc: { oldAdress: adress },
+  ccc: { oldAddress: address },
   ddd: { oldAge: age },
+  eee: { superAddress: address },
 };
 
 /* register variable */
 analysis.register(user, "user");
+
+/* empty line */
+console.log();
 
 /* show analysis */
 analysis.report();

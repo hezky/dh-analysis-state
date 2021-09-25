@@ -22,8 +22,8 @@
   },
   "scripts": {
     "build": "dh-run build",
-    "devel": "dh-run devel",
     "clean": "dh-run clean",
+    "devel": "dh-run devel",
     "eslint": "dh-run eslint",
     "prepublishOnly": "dh-run prepublishOnly",
     "test": "dh-run test"
