@@ -48,7 +48,7 @@ const logPos = (deep, storeDeep, parsedSKey) => {
   return result;
 };
 
-const defaultReporter = function () {
+const reporterTree = function () {
   const store = this.analyzed.getStore();
   const storeDeep = [];
   let bFirstCycle = true;
@@ -70,11 +70,11 @@ const defaultReporter = function () {
       const _parPos = logPar(deep, index, countChildOfParrent);
       const _childPos = logAct(childCount);
       const _dupl = duplicate
-        ? ` duplicate (${duplicate.join(", ")})`
+        ? ` duplicate = [${duplicate.join(", ")}]`
         : CHAR.EMPTY;
       console.log(_empty + _parPos + _childPos + CHAR.SPACE + sKey + _dupl);
     }
   }
 };
 
-export default defaultReporter;
+export default reporterTree;

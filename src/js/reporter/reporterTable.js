@@ -1,4 +1,4 @@
-const defaultReporter = function () {
+const reporterTable = function () {
   const groups = this.duplicates.getStoreGroup();
   let first = true;
   for (const keyGroup in groups) {
@@ -21,4 +21,4 @@ const defaultReporter = function () {
   }
 };
 
-export default defaultReporter;
+export default reporterTable;

@@ -7,7 +7,7 @@ const determineDeep = (parrent) => (parrent ? parrent.deep + 1 : 0);
 const determineSKey = (index, parrent) =>
   parrent ? `${parrent.sKey}.${index}` : `${index}`;
 
-const determinePath = (name = "", parrent) =>
+const determinePath = (name = "", parrent = null) =>
   parrent?.path?.length ? `${parrent.path}/${name}` : `${name}`;
 
 const makeAnalysisParrent = (parrent, childSKey) => {
@@ -39,7 +39,7 @@ const makeAnalysisParrent = (parrent, childSKey) => {
   ************************Tree********************
 */
 const makeAnalysisObj = (
-  { index = null, name = VALUE_UNKNOWN, parrent = null, value },
+  { index = null, name = VALUE_UNKNOWN, parrent = null, value = null },
   type
 ) => {
   const obj = {};

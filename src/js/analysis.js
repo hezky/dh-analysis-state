@@ -5,7 +5,7 @@ import Analyzed from "parts/analyzed";
 import Duplicates from "parts/duplicates";
 import makeAnalysisObj from "parts/analyzed/makeAnalysisObj";
 import makeIterator from "parts/makeIterator";
-import defaultReporter from "reporter/default";
+import defaultReporter from "reporter/defaultReporter";
 import { checkIsList, checkIsNode } from "utils/check";
 
 const defaultIndex = (iterator) => iterator.value();
@@ -49,7 +49,7 @@ class Analysis {
         }
         break;
       default: {
-        throw "unknow node ...";
+        throw new Error("Unknown node.");
       }
     }
   }
@@ -84,7 +84,7 @@ class Analysis {
     value,
     name = defaultName(this.iterator),
     index = defaultIndex(this.iterator),
-    parrentSKey
+    parrentSKey = null
   ) {
     const parrent = this.analyzed.get(parrentSKey) || undefined;
     const item = {
@@ -101,7 +101,7 @@ class Analysis {
         this._registerList(item);
         break;
       default: {
-        throw "unknow node ...";
+        throw new Error("Unknown node.");
       }
     }
 

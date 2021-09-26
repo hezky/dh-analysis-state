@@ -1,4 +1,4 @@
-const defaultReporter = function () {
+const reporterAnalyzed = function () {
   const store = this.analyzed.getStore();
   let first = true;
   for (const sKey in store) {
@@ -13,4 +13,4 @@ const defaultReporter = function () {
   }
 };
 
-export default defaultReporter;
+export default reporterAnalyzed;
