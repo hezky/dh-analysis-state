@@ -29,14 +29,21 @@ const logFirstLine = (bFirstCycle, sKey) => {
 const logAct = (childCount) =>
   childCount ? CHAR.ACT_EXIST_CHILDREN : CHAR.ACT_NO_CHILDREN;
 
-const logPar = (deep, index, childCount) =>
-  `${deep - 1 > 0 ? CHAR.SPACE : CHAR.EMPTY}${
-    index < childCount - 1
-      ? CHAR.PAR_MORE_CHILDREN
-      : index === childCount - 1
-      ? CHAR.PAR_LAST_CHILDREN
-      : CHAR.SPACE
-  }`;
+const logPar = (deep, index, childCount) => {
+  let result = deep - 1 > 0 ? CHAR.SPACE : CHAR.EMPTY;
+  switch (true) {
+    case index < childCount - 1:
+      result += CHAR.PAR_MORE_CHILDREN;
+      break;
+    case index === childCount - 1:
+      result += CHAR.PAR_LAST_CHILDREN;
+      break;
+    default:
+      result += CHAR.SPACE;
+      break;
+  }
+  return result;
+};
 
 const logPos = (deep, storeDeep, parsedSKey) => {
   let result = "";
