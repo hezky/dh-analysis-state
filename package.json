@@ -6,7 +6,7 @@
     "@dh-utils/common": "^0.3.1"
   },
   "devDependencies": {
-    "@dh-dependency/base": "^0.0.56",
+    "@dh-dependency/base": "^0.1.1",
     "@dh-scripts/run": "^0.2.5",
     "babel-plugin-module-resolver": "^4.1.0"
   },

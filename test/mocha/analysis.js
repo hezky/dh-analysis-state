@@ -14,8 +14,8 @@ describe("analysis", () => {
       0: { "0.2": "users/2", "0.0": "users/0", "0.4": "users/4" },
     };
     const expectedKeys = { "0.2": "0", "0.0": "0", "0.4": "0" };
-    assert.deepEqual(analysis.duplicates.storeGroup, expectedGroup);
-    assert.deepEqual(analysis.duplicates.storeSKeys, expectedKeys);
+    assert.deepEqual(analysis.duplicates.getStoreGroup(), expectedGroup);
+    assert.deepEqual(analysis.duplicates.getStoreSKeys(), expectedKeys);
   });
 
   it("analysis : duplicate object", () => {
@@ -41,7 +41,7 @@ describe("analysis", () => {
       "0.4.0": "1",
     };
 
-    assert.deepEqual(analysis.duplicates.storeGroup, expectedGroup);
-    assert.deepEqual(analysis.duplicates.storeSKeys, expectedKeys);
+    assert.deepEqual(analysis.duplicates.getStoreGroup(), expectedGroup);
+    assert.deepEqual(analysis.duplicates.getStoreSKeys(), expectedKeys);
   });
 });

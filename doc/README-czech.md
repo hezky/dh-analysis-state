@@ -1,6 +1,6 @@
 # @dh-analysis/state
 
-[Použití v anglickém jazyce (Readme in English)](https://github.com/hezky/@dh-analysis/state/blob/master/README.md)
+[Použití v anglickém jazyce (Readme in English)](https://github.com/hezky/dh-analysis-state/blob/master/README.md)
 
 > Nástroj k analýze stavu proměnných. Analýza objektů, polí a jejich vnitřních části s kontrolou jestli sdílejí stejnou adresu paměti.
 
@@ -73,7 +73,7 @@ Proměnná **user** má 2 skupiny duplicit. Označené zde jako **group 0** a **
 
 ## Použití vlastního reportu
 
-K vytvoření vlastního reportu využijte svázané (metoda bind) lokální proměnné duplicity - **storeGroup** a **storeSKeys** .
+K vytvoření vlastního reportu využijte svázané (metoda bind) lokální proměnné duplicity - **storeGroup** (vrací metoda getStoreGroup()) a **storeSKeys** (vrací metoda getStoreSKeys()).
 
 **storeSKeys** : seznam id klíčů. Každý klíč má hodnotu identifikátor skupiny duplicity.
 
@@ -104,7 +104,7 @@ Příklad **storeGroup** :
 ## Příklad defautního reportu k vytvoření vlastního reportu
 ``` javascript
 let defaultReporter = function () {
-  const groups = this.duplicates.storeGroup;
+  const groups = this.duplicates.getStoreGroup();
   for (const propsG in groups) {
     const group = groups[propsG];
     let paths = [];

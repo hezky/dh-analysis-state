@@ -12,17 +12,21 @@ const defaultIndex = (iterator) => iterator.value();
 const defaultName = (iterator) => `${UNKNOWN}-${iterator.value()}`;
 
 class Analysis {
+  #iterator;
+  #known;
+  #reporter;
+
   constructor(reporter = defaultReporter) {
-    this.reporter = reporter;
-    this.reporter = this.reporter.bind(this);
+    this.#reporter = reporter;
+    this.#reporter = this.#reporter.bind(this);
     this.reset();
   }
 
   reset() {
     this.analyzed = new Analyzed();
     this.duplicates = new Duplicates();
-    this.iterator = makeIterator();
-    this.known = new Map();
+    this.#iterator = makeIterator();
+    this.#known = new Map();
   }
 
   _registerChildren(analysisObj) {
@@ -55,7 +59,7 @@ class Analysis {
   }
 
   _registerDuplicate(analysisObj) {
-    const duplicatedSKey = this.known.get(analysisObj.value);
+    const duplicatedSKey = this.#known.get(analysisObj.value);
     const duplicatedObj = this.analyzed.get(duplicatedSKey);
     this.duplicates.set(analysisObj, duplicatedObj);
     const listDuplicates = Object.keys(this.duplicates.get(duplicatedSKey));
@@ -68,8 +72,8 @@ class Analysis {
   _registerNode(item) {
     const analysisObj = makeAnalysisObj(item, TYPE_NODES.NODE);
     this.analyzed.add(analysisObj);
-    if (this.known.has(analysisObj.value) === false) {
-      this.known.set(analysisObj.value, analysisObj.sKey);
+    if (this.#known.has(analysisObj.value) === false) {
+      this.#known.set(analysisObj.value, analysisObj.sKey);
     } else {
       this._registerDuplicate(analysisObj);
     }
@@ -82,8 +86,8 @@ class Analysis {
 
   register(
     value,
-    name = defaultName(this.iterator),
-    index = defaultIndex(this.iterator),
+    name = defaultName(this.#iterator),
+    index = defaultIndex(this.#iterator),
     parrentSKey = null
   ) {
     const parrent = this.analyzed.get(parrentSKey) || undefined;
@@ -106,12 +110,12 @@ class Analysis {
     }
 
     if (index === undefined) {
-      this.iterator.next();
+      this.#iterator.next();
     }
   }
 
   report() {
-    return this.reporter();
+    return this.#reporter();
   }
 }
 

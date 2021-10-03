@@ -1,6 +1,6 @@
 # @dh-analysis/state
 
-[Readme in Czech (Readme v Češtině)](https://github.com/hezky/@dh-analysis/state/blob/master/doc/README-czech.md)
+[Readme in Czech (Readme v Češtině)](https://github.com/hezky/dh-analysis-state/blob/master/doc/README-czech.md)
 
 > A tool for analyzing the state of variables. Analyze objects, arrays, and their internal parts to see if they share the same memory address.
 
@@ -71,7 +71,7 @@ The variable **user** has 2 groups of duplicates. Marked here as **group 0** and
 
 ## Use your own report
 
-Use the bound (method bind) local duplicate variables - **storeGroup** and **storeSKeys** - to create your own report.
+Use the bound (method bind) local duplicate variables - **storeGroup** (returns the getStoreGroup method) and **storeSKeys** (returns the getStoreSKeys method) - to create your own report.
 
 **storeSKeys**: list of key ids. Each key has a duplicate group identifier value.
 
@@ -102,7 +102,7 @@ Example **storeGroup** :
 ## Example of a default report to create your own report
 ``` javascript
 let defaultReporter = function () {
-  const groups = this.duplicates.storeGroup;
+  const groups = this.duplicates.getStoreGroup();
   for (const propsG in groups) {
     const group = groups[propsG];
     let paths = [];
