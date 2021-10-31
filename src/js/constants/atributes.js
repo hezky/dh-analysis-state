@@ -1,7 +1,7 @@
 // type nodes
 const TYPE_NODES = {
   NODE: "node",
-  LIST: "list",
+  LEAF: "leaf",
 };
 
 // value unkonwn

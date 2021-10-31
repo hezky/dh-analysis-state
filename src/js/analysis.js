@@ -81,7 +81,7 @@ class Analysis {
   }
 
   _registerList(item) {
-    this.analyzed.add(makeAnalysisObj(item, TYPE_NODES.LIST));
+    this.analyzed.add(makeAnalysisObj(item, TYPE_NODES.LEAF));
   }
 
   register(

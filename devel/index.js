@@ -1,7 +1,7 @@
 /* in you case use 'import Analysis from "@dh-analysis/state"' */
 import Analysis from "";
 
-import reporter from "reporter/reporterTree";
+import reporter from "reporter/reporterTreeColor2";
 
 /* or use 'new Analysis(ownReporter);' */
 const analysis = new Analysis(reporter);
@@ -12,7 +12,7 @@ const user = {
   aaa: { newAddress: address },
   bbb: { newAge: age },
   ccc: { oldAddress: address },
-  ddd: { oldAge: age },
+  ddd: { a: "a", b: "b", oldAge: age, x: "x" },
   eee: { superAddress: address },
 };
 

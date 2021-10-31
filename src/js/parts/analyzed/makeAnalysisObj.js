@@ -20,23 +20,23 @@ const makeAnalysisParrent = (parrent, childSKey) => {
   }
 };
 
-/*o be thrown.
-
+/*
  ********************************************
  ANALYSIS OBJECT
 - atributes :
-  ... deep       - deep in struct
-  ... duplicate  - duplicate in memory
-  ... children   - list children keys
-  ... index      - index
-  ... name       - name property in parrent value
-  ... parrent    - parrent key
-  ... path       - path in state
-  ... sKey       - key, id, identification
-  ... typeValue  - type
-  ... value      - value
-  ... typeNode   - typconste of node = [list, node]
-  ************************Tree********************
+  ... deep              - deep in struct
+  ... duplicate         - duplicate in memory
+  ... duplicateAncestor - duplicate ancestor
+  ... children          - list children keys
+  ... index             - index
+  ... name              - name property in parrent value
+  ... parrent           - parrent key
+  ... path              - path in state
+  ... sKey              - key, id, identification
+  ... typeValue         - type
+  ... value             - value
+  ... typeNode          - typconste of node = [list, node]
+  ********************************************
 */
 const makeAnalysisObj = (
   { index = null, name = VALUE_UNKNOWN, parrent = null, value = null },
