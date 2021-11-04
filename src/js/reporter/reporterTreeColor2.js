@@ -12,7 +12,9 @@ const CHAR = {
 
   ANY_CHILDREN: "│",
   EMPTY: "",
+  FIRST: "_",
   LEAF: "o",
+  NODE: "[+]",
   SPACE: " ",
 };
 
@@ -28,7 +30,7 @@ const logFirstLine = (bFirstCycle, sKey) => {
     } else {
       bFirstCycle = false;
     }
-    console.log("_");
+    console.log(CHAR.FIRST);
   }
   return bFirstCycle;
 };
@@ -100,7 +102,7 @@ const reporterTree = function () {
         if (typeNode === TYPE_NODES.LEAF) {
           console.log(_empty + chalk.green(_parPos + _childPos + CHAR.LEAF));
         } else {
-          console.log(_empty + chalk.yellow(_parPos + _childPos + "*"));
+          console.log(_empty + _parPos + _childPos + CHAR.NODE);
         }
       }
     }
